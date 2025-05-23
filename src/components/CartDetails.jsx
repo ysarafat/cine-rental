@@ -5,11 +5,10 @@ import { MovieContext } from "../context";
 import { getImageUrl } from "../utils/cine-utility";
 
 export default function CartDetails({ onClose }) {
-  const { cartData, setCartData } = useContext(MovieContext);
+  const { state, dispatch } = useContext(MovieContext);
   function handleDeleteCart(e, id) {
     e.preventDefault();
-    const updatedCart = cartData.filter((item) => item.id !== id);
-    setCartData(updatedCart);
+    dispatch({ type: "REMOVE_FROM_CART", payload: { id } });
   }
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">
@@ -19,12 +18,12 @@ export default function CartDetails({ onClose }) {
             Your Carts
           </h2>
           <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-            {cartData.length === 0 ? (
+            {state.cartData.length === 0 ? (
               <div className="text-center text-[#575A6E]">
                 Your cart is empty
               </div>
             ) : (
-              cartData.map((item) => (
+              state.cartData.map((item) => (
                 <div key={item.id} className="grid grid-cols-[1fr_auto] gap-4">
                   <div className="flex items-center gap-4">
                     <img
