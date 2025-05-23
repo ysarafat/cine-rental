@@ -9,3 +9,7 @@
     @apply mx-auto  p-[1.25rem];
   }
 }
+
+.dark {
+  @apply bg-[#171923] text-[#c9d1d9];
+}
