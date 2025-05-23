@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import Provider from "./context/Provider";
 import Page from "./Page";
 
@@ -6,6 +7,7 @@ export default function App() {
   return (
     <Provider>
       <Page />
+      import toast, {Toaster} from 'react-hot-toast';
     </Provider>
   );
 }

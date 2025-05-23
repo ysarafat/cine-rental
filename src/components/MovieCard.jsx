@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { MovieContext } from "../context";
 import { getImageUrl } from "../utils/cine-utility";
 import MovieDetailsModal from "./MovieDetailsModal";
 import Rating from "./Rating";
-
 export default function MovieCard({ movie }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -22,7 +22,9 @@ export default function MovieCard({ movie }) {
     const found = state.cartData.find((item) => item.id === movie.id);
     if (!found) {
       dispatch({ type: "ADD_TO_CART", payload: { ...movie } });
+      toast.success(`${movie.title} added to cart`);
     } else {
+      toast.error(`${movie.title} already in cart`);
       console.error(`${movie.title} already in cart`);
     }
   }
@@ -49,14 +51,14 @@ export default function MovieCard({ movie }) {
               <Rating value={movie.rating} />
             </div>
 
-            <a
-              className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
+            <button
+              className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm w-full"
               href="#"
               onClick={(event) => handleAddToCart(event, movie)}
             >
               <img src="./assets/tag.svg" alt="" />
               <span>${movie.price} | Add to Cart</span>
-            </a>
+            </button>
           </figcaption>
         </a>
       </figure>
